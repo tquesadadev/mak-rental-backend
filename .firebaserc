@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "mak-rental",
+    "dev": "mak-rental-dev"
+  },
+  "targets": {},
+  "etags": {}
+}
