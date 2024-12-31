@@ -3,7 +3,6 @@ import {getUserByEmail, verifyToken} from "../queries/authQueries";
 import {validateRolePermissions} from "../functions/authFunctions";
 import {deletePayedProduct, markAsPayed, verifyPayedExistByData, verifyPayedExistById} from "../functions/payedFunctions";
 import {deleteSoldValidations, markAsPayedValidations} from "../helpers/payedValidations";
-import {verifyLoteExist} from "../functions/clientFunctions";
 import {UserRecord} from "firebase-admin/auth";
 
 // INDICAR PAGO
@@ -27,7 +26,7 @@ export const startCreatePayed = (async (req:any, res:any) => {
     response = await verifyPayedExistByData(req.body, false, response);
 
     if (response.body === null) {
-      response = await verifyLoteExist(req.body.loteNumber, response);
+      // response = await verifyLoteExist(req.body.loteNumber, response);
 
       if (response.body !== null) {
         response = await markAsPayed(response.body, user, req.body.loteNumber, req.body.week, response);

@@ -50,6 +50,7 @@ initializeApp();
 
 app.use("/v1/auth", require("./routes/auth"));
 app.use("/v1/client", require("./routes/client"));
+app.use("/v1/stock", require("./routes/stock"));
 app.use("/v1/payed", require("./routes/payed"));
 
 exports.api = onRequest({cors: corsUrls}, app);

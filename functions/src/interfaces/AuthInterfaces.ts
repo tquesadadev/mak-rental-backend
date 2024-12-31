@@ -31,7 +31,7 @@ export interface DeleteProps {
 
 export type RoleTypes =
     | "Administrador"
-    | "Proveedor"
+    | "Operario"
     | "None"
 
 export interface AccessProps {

@@ -1,6 +1,6 @@
 import {addDocument, deleteDocument, fetchWithConditions, getDocuments, QueryCondition} from "../queries/firestoreQueries";
-import {ClientProps, LoteProps} from "../interfaces/ClientInterfaces";
-import {getFullDate, logActivity} from "../utils/Utilities";
+import {ClientProps} from "../interfaces/ClientInterfaces";
+import {logActivity} from "../utils/Utilities";
 import {createPayedValidations, deleteSoldValidations, markAsPayedValidations} from "../helpers/payedValidations";
 import {MarkAsPayedProps, PayedProps, WeekPayedProps} from "../interfaces/PayedInterfaces";
 import {GetDocumentsRequestProps} from "../interfaces/FirestoreInterfaces";
@@ -141,53 +141,53 @@ export const markAsPayed = (async (client: ClientProps, user: UserRecord, loteNu
 
 
     if (response.code === 0) {
-      const date = parseInt(getFullDate());
+      // const date = parseInt(getFullDate());
 
-      const lotes : LoteProps[] = client.lotes.filter((value) => {
-        return value.loteNumber === loteNumber && value.endDate === null;
-      });
-      const lotesArray : LoteProps[] = client.lotes.filter((value) => {
-        return value.endDate === null;
-      });
-      console.log("------------------------");
-      console.log(lotes);
-      console.log(lotesArray);
+      // const lotes : LoteProps[] = client.lotes.filter((value) => {
+      //   return value.loteNumber === loteNumber && value.endDate === null;
+      // });
+      // const lotesArray : LoteProps[] = client.lotes.filter((value) => {
+      //   return value.endDate === null;
+      // });
+      // console.log("------------------------");
+      // console.log(lotes);
+      // console.log(lotesArray);
 
-      if (lotes.length > 0) {
-        const newPayed : PayedProps = {
-          id: date,
-          amount: lotes[0]?.price ?? 0,
-          clientId: client.id,
-          author: user.displayName ?? user.email ?? "",
-          date,
-          lotes: lotesArray,
-          week,
-        };
+      // if (lotes.length > 0) {
+      //   const newPayed : PayedProps = {
+      //     id: date,
+      //     amount: lotes[0]?.price ?? 0,
+      //     clientId: client.id,
+      //     author: user.displayName ?? user.email ?? "",
+      //     date,
+      //     lotes: lotesArray,
+      //     week,
+      //   };
 
-        response = await createPayed(newPayed, response);
+      //   response = await createPayed(newPayed, response);
 
-        if (response.code === 0) {
-          await logActivity({
-            userId: user.displayName ?? user.email ?? "",
-            action: "markPayed",
-            details: {
-              after: {
-                amount: lotes[0]?.price ?? 0,
-                clientId: client.id,
-                loteNumber,
-                week,
-              },
-            },
-          });
-        }
-      } else {
-        response = {
-          body: null,
-          trace: "DOCUMENTS_INCONSISTANCE",
-          message: "Error al intentar marcar como pagado.",
-          code: 1,
-        };
-      }
+      //   if (response.code === 0) {
+      //     await logActivity({
+      //       userId: user.displayName ?? user.email ?? "",
+      //       action: "markPayed",
+      //       details: {
+      //         after: {
+      //           amount: lotes[0]?.price ?? 0,
+      //           clientId: client.id,
+      //           loteNumber,
+      //           week,
+      //         },
+      //       },
+      //     });
+      //   }
+      // } else {
+      //   response = {
+      //     body: null,
+      //     trace: "DOCUMENTS_INCONSISTANCE",
+      //     message: "Error al intentar marcar como pagado.",
+      //     code: 1,
+      //   };
+      // }
     }
   }
 

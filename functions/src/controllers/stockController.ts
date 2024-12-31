@@ -1,15 +1,15 @@
 import {initialResponse} from "../constants/initialStates";
 import {getUserByEmail, verifyToken} from "../queries/authQueries";
 import {validateRolePermissions} from "../functions/authFunctions";
-import {letsCreateNewClient, letsDeleteClient, letsReturnDeletedClient, letsUpdateClient, verifyClientExistById} from "../functions/clientFunctions";
-import {markNewClientValidations, updateClientValidations} from "../helpers/clientValidations";
+import {letsCreateNewStock, letsDeleteStock, letsReturnDeletedStock, letsUpdateStock, verifyStockExistById} from "../functions/stockFunctions";
+import {markNewStockValidations, updateStockValidations} from "../helpers/stockValidations";
 import {UserRecord} from "firebase-admin/auth";
 
-// CREA UN CLIENTE
-export const startCreateClient = (async (req:any, res:any) => {
+// CREA UN STOCK
+export const startCreateStock = (async (req:any, res:any) => {
   let response = initialResponse;
 
-  response = await markNewClientValidations(response, req.body);
+  response = await markNewStockValidations(response, req.body);
 
   response = await verifyToken(req, response);
 
@@ -19,18 +19,16 @@ export const startCreateClient = (async (req:any, res:any) => {
 
   response = await validateRolePermissions(user, "Administrador", response);
 
-  // response = await verifyClientExistByName(req.body.name, false, response);
-
-  response = await letsCreateNewClient(user, req.body, response);
+  response = await letsCreateNewStock(user, req.body, response);
 
   res.status(response.code === 0 ? 200 : 500).json(response);
 });
 
-// ACTUALIZA UN CLIENTE
-export const startUpdateClient = (async (req:any, res:any) => {
+// ACTUALIZA UN STOCK
+export const startUpdateStock = (async (req:any, res:any) => {
   let response = initialResponse;
 
-  response = await updateClientValidations(response, req.body);
+  response = await updateStockValidations(response, req.body);
 
   response = await verifyToken(req, response);
 
@@ -40,20 +38,20 @@ export const startUpdateClient = (async (req:any, res:any) => {
 
   response = await validateRolePermissions(user, "Administrador", response);
 
-  response = await verifyClientExistById(req.body.id, true, response);
+  response = await verifyStockExistById(req.body.id, true, response);
 
-  response = await letsUpdateClient(user, response.body, req.body, response);
+  response = await letsUpdateStock(user, response.body, req.body, response);
 
   // CREAR DOCUMENTO DE LA ACTIVIDAD
 
   res.status(response.code === 0 ? 200 : 500).json(response);
 });
 
-// ELIMINAR CLIENTE
-export const startDeleteClient = (async (req:any, res:any) => {
+// ELIMINAR STOCK
+export const startDeleteStock = (async (req:any, res:any) => {
   let response = initialResponse;
 
-  response = await updateClientValidations(response, req.body);
+  response = await updateStockValidations(response, req.body);
 
   response = await verifyToken(req, response);
 
@@ -63,20 +61,20 @@ export const startDeleteClient = (async (req:any, res:any) => {
 
   response = await validateRolePermissions(user, "Administrador", response);
 
-  response = await verifyClientExistById(req.body.id, true, response);
+  response = await verifyStockExistById(req.body.id, true, response);
 
-  response = await letsDeleteClient(user, response.body, response);
+  response = await letsDeleteStock(user, response.body, response);
 
   // CREAR DOCUMENTO DE LA ACTIVIDAD
 
   res.status(response.code === 0 ? 200 : 500).json(response);
 });
 
-// REINCORPORAR CLIENTE
-export const startReturnDeletedClient = (async (req:any, res:any) => {
+// REINCORPORAR STOCK
+export const startReturnDeletedStock = (async (req:any, res:any) => {
   let response = initialResponse;
 
-  response = await updateClientValidations(response, req.body);
+  response = await updateStockValidations(response, req.body);
 
   response = await verifyToken(req, response);
 
@@ -86,9 +84,9 @@ export const startReturnDeletedClient = (async (req:any, res:any) => {
 
   response = await validateRolePermissions(user, "Administrador", response);
 
-  response = await verifyClientExistById(req.body.id, true, response);
+  response = await verifyStockExistById(req.body.id, true, response);
 
-  response = await letsReturnDeletedClient(user, response.body, response);
+  response = await letsReturnDeletedStock(user, response.body, response);
 
   // CREAR DOCUMENTO DE LA ACTIVIDAD
 

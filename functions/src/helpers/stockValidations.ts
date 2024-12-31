@@ -1,9 +1,9 @@
 import {ResponseProps} from "../interfaces/AuthInterfaces";
-import {ClientProps, NewClientProps} from "../interfaces/ClientInterfaces";
+import {StockProps, NewStockProps} from "../interfaces/StockInterfaces";
 
-const createClientValidations = (
+const createStockValidations = (
   response: ResponseProps,
-  doc: NewClientProps) => {
+  doc: NewStockProps) => {
   if (doc === undefined) {
     response = {
       body: {},
@@ -13,46 +13,46 @@ const createClientValidations = (
     };
   } else {
     const {
-      name,
-      document,
-      phone,
-      mail,
-      address,
+      product,
+      description,
+      weight,
+      serieNumber,
+      totalAmount,
     } = doc;
 
-    if (name === undefined) {
+    if (product === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (name)",
-        message: "Falta el campo name.",
+        trace: "FIELD_MISSING (product)",
+        message: "Falta el campo product.",
         code: 1,
       };
-    } else if (phone === undefined) {
+    } else if (description === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (phone)",
-        message: "Falta el campo campo phone.",
+        trace: "FIELD_MISSING (description)",
+        message: "Falta el campo campo description.",
         code: 1,
       };
-    } else if (document === undefined) {
+    } else if (weight === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (document)",
-        message: "Falta el campo campo document.",
+        trace: "FIELD_MISSING (weight)",
+        message: "Falta el campo campo weight.",
         code: 1,
       };
-    } else if (mail === undefined) {
+    } else if (serieNumber === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (mail)",
-        message: "Falta el campo campo mail.",
+        trace: "FIELD_MISSING (serieNumber)",
+        message: "Falta el campo campo serieNumber.",
         code: 1,
       };
-    } else if (address === undefined) {
+    } else if (totalAmount === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (address)",
-        message: "Falta el campo campo address.",
+        trace: "FIELD_MISSING (totalAmount)",
+        message: "Falta el campo campo totalAmount.",
         code: 1,
       };
     }
@@ -62,9 +62,9 @@ const createClientValidations = (
 };
 
 
-const markNewClientValidations = (
+const markNewStockValidations = (
   response: ResponseProps,
-  doc: NewClientProps) => {
+  doc: NewStockProps) => {
   if (doc === undefined) {
     response = {
       body: {},
@@ -74,46 +74,46 @@ const markNewClientValidations = (
     };
   } else {
     const {
-      name,
-      document,
-      phone,
-      mail,
-      address,
+      product,
+      description,
+      weight,
+      serieNumber,
+      totalAmount,
     } = doc;
 
-    if (name === undefined) {
+    if (product === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (name)",
-        message: "Falta el campo name.",
+        trace: "FIELD_MISSING (product)",
+        message: "Falta el campo product.",
         code: 1,
       };
-    } else if (phone === undefined) {
+    } else if (description === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (phone)",
-        message: "Falta el campo campo phone.",
+        trace: "FIELD_MISSING (description)",
+        message: "Falta el campo campo description.",
         code: 1,
       };
-    } else if (document === undefined) {
+    } else if (weight === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (document)",
-        message: "Falta el campo campo document.",
+        trace: "FIELD_MISSING (weight)",
+        message: "Falta el campo campo weight.",
         code: 1,
       };
-    } else if (mail === undefined) {
+    } else if (serieNumber === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (mail)",
-        message: "Falta el campo campo mail.",
+        trace: "FIELD_MISSING (serieNumber)",
+        message: "Falta el campo campo serieNumber.",
         code: 1,
       };
-    } else if (address === undefined) {
+    } else if (totalAmount === undefined) {
       response = {
         body: {},
-        trace: "FIELD_MISSING (address)",
-        message: "Falta el campo campo address.",
+        trace: "FIELD_MISSING (totalAmount)",
+        message: "Falta el campo campo totalAmount.",
         code: 1,
       };
     }
@@ -122,7 +122,7 @@ const markNewClientValidations = (
   return response;
 };
 
-const clientExistValidations = (
+const stockExistValidations = (
   response: ResponseProps,
   id: number) => {
   if (id === undefined) {
@@ -137,9 +137,9 @@ const clientExistValidations = (
   return response;
 };
 
-const updateClientValidations = (
+const updateStockValidations = (
   response: ResponseProps,
-  params: ClientProps) => {
+  params: StockProps) => {
   if (params === undefined) {
     response = {
       body: {},
@@ -195,8 +195,8 @@ const updateClientValidations = (
 
 
 export {
-  createClientValidations,
-  updateClientValidations,
-  clientExistValidations,
-  markNewClientValidations,
+  createStockValidations,
+  updateStockValidations,
+  stockExistValidations,
+  markNewStockValidations,
 };

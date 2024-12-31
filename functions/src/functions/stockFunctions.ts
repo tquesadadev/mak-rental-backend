@@ -1,8 +1,8 @@
 import {GetDocumentsRequestProps} from "../interfaces/FirestoreInterfaces";
 import {addDocument, deleteDocument, getDocuments, updateDocument} from "../queries/firestoreQueries";
-import {ClientProps, LetsUpdateClientProps, NewClientProps} from "../interfaces/ClientInterfaces";
+import {StockProps, LetsUpdateStockProps, NewStockProps} from "../interfaces/StockInterfaces";
 import {capitalizeFullName, getFullDate, logActivity} from "../utils/Utilities";
-import {createClientValidations, updateClientValidations, markNewClientValidations} from "../helpers/clientValidations";
+import {createStockValidations, updateStockValidations, markNewStockValidations} from "../helpers/stockValidations";
 import {deleteSoldValidations} from "../helpers/payedValidations";
 import {UserRecord} from "firebase-admin/auth";
 
@@ -11,7 +11,7 @@ export const getAllProducts = (async (response:any) => {
   if (response.code === 0) {
     const newReq : {body: GetDocumentsRequestProps} = {
       body: {
-        collection: "Clients",
+        collection: "Stock",
         id: null,
         where: null,
         order: null,
@@ -31,13 +31,13 @@ export const getAllProducts = (async (response:any) => {
   return response;
 });
 
-// VERIFICA SI UN CLIENTE EXISTE
-export const verifyClientExistById = (async (clientId: number, mustExists: boolean, response:any) => {
+// VERIFICA SI UN STOCK EXISTE
+export const verifyStockExistById = (async (stockId: number, mustExists: boolean, response:any) => {
   if (response.code === 0) {
     const newReq : {body: GetDocumentsRequestProps} = {
       body: {
-        collection: "Clients",
-        id: clientId.toString(),
+        collection: "Stock",
+        id: stockId.toString(),
         where: null,
         order: null,
       },
@@ -48,7 +48,7 @@ export const verifyClientExistById = (async (clientId: number, mustExists: boole
     response = {
       body: response.body !== null ? response.body.document : null,
       trace: response.body !== null ? "DOCUMENTS_FOUNDED" : "DOCUMENTS_NOT_FOUNDED",
-      message: response.body !== null ? "El cliente con este nombre y apellido ya existe." : "El cliente con este nombre y apellido no existe.",
+      message: response.body !== null ? "El stock con este nombre y apellido ya existe." : "El stock con este nombre y apellido no existe.",
       code: mustExists ? (response.body === null ? 1 : 0) : (response.body != null ? 1 : 0),
     };
   }
@@ -56,12 +56,12 @@ export const verifyClientExistById = (async (clientId: number, mustExists: boole
   return response;
 });
 
-// VERIFICA SI UN CLIENTE EXISTE
-export const verifyClientExistByName = (async (name: string, mustExists: boolean, response:any) => {
+// VERIFICA SI UN STOCK EXISTE
+export const verifyStockExistByName = (async (name: string, mustExists: boolean, response:any) => {
   if (response.code === 0) {
     const newReq : {body: GetDocumentsRequestProps} = {
       body: {
-        collection: "Clients",
+        collection: "Stock",
         id: null,
         where: {field: "name", filter: "==", value: capitalizeFullName(name)},
         order: null,
@@ -73,7 +73,7 @@ export const verifyClientExistByName = (async (name: string, mustExists: boolean
     response = {
       body: response.body !== null ? response.body.document : null,
       trace: response.body !== null ? "DOCUMENTS_FOUNDED" : "DOCUMENTS_NOT_FOUNDED",
-      message: response.body !== null ? "El cliente con este nombre y apellido ya existe." : "El cliente con este nombre y apellido no existe.",
+      message: response.body !== null ? "El stock con este nombre y apellido ya existe." : "El stock con este nombre y apellido no existe.",
       // code: response.body === null && returnError ? 1 : 0,
       code: mustExists ? (response.body === null ? 1 : 0) : (response.body != null ? 1 : 0),
     };
@@ -82,18 +82,18 @@ export const verifyClientExistByName = (async (name: string, mustExists: boolean
   return response;
 });
 
-// CREA UN CLIENTE
-export const createClientDocument = (async (client: ClientProps, response:any) => {
+// CREA UN STOCKE
+export const createStockDocument = (async (stock: StockProps, response:any) => {
   if (response.code === 0) {
-    response = createClientValidations(response, client);
+    response = createStockValidations(response, stock);
 
     if (response.code === 0) {
       if (response.code === 0) {
-        const newReq : {body: {collection: string, id: string, doc: ClientProps}} = {
+        const newReq : {body: {collection: string, id: string, doc: StockProps}} = {
           body: {
-            collection: "Clients",
-            id: client.id.toString(),
-            doc: client,
+            collection: "Stock",
+            id: stock.id.toString(),
+            doc: stock,
           },
         };
 
@@ -104,16 +104,16 @@ export const createClientDocument = (async (client: ClientProps, response:any) =
   return response;
 });
 
-// ACTUALIZA UN CLIENTE
-export const updateClientDocument = (async (client: ClientProps, response:any) => {
+// ACTUALIZA UN STOCKE
+export const updateStockDocument = (async (stock: StockProps, response:any) => {
   if (response.code === 0) {
-    response = updateClientValidations(response, client);
+    response = updateStockValidations(response, stock);
     if (response.code === 0) {
-      const newReq : {body: {collection: string, id: string, doc: ClientProps}} = {
+      const newReq : {body: {collection: string, id: string, doc: StockProps}} = {
         body: {
-          collection: "Clients",
-          id: client.id.toString(),
-          doc: client,
+          collection: "Stock",
+          id: stock.id.toString(),
+          doc: stock,
         },
       };
 
@@ -125,15 +125,15 @@ export const updateClientDocument = (async (client: ClientProps, response:any) =
 });
 
 // ELIMINAR PRODUCTO VENDIDO
-export const deleteProduct = (async (user: UserRecord, clientId: number, response:any) => {
+export const deleteProduct = (async (user: UserRecord, stockId: number, response:any) => {
   if (response.code === 0) {
-    response = deleteSoldValidations(response, clientId);
+    response = deleteSoldValidations(response, stockId);
 
     if (response.code === 0) {
       const newReq : {body: {collection: string, id: string}} = {
         body: {
-          collection: "Clients",
-          id: clientId.toString(),
+          collection: "Stock",
+          id: stockId.toString(),
         },
       };
 
@@ -158,33 +158,33 @@ export const deleteProduct = (async (user: UserRecord, clientId: number, respons
   return response;
 });
 
-// CREAR CLIENTE
-export const letsCreateNewClient = (async (user: UserRecord, body: NewClientProps, response:any) => {
+// CREAR STOCKE
+export const letsCreateNewStock = (async (user: UserRecord, body: NewStockProps, response:any) => {
   if (response.code === 0) {
-    response = markNewClientValidations(response, body);
+    response = markNewStockValidations(response, body);
 
     if (response.code === 0) {
       const fulldate = parseInt(getFullDate());
 
-      const newClient : ClientProps = {
+      const newStock : StockProps = {
         id: fulldate,
-        name: capitalizeFullName(body.name),
-        phone: body.phone.trim(),
-        address: body.address.trim(),
-        document: body.document.trim(),
-        mail: body.mail.trim(),
+        product: capitalizeFullName(body.product),
+        description: body.description.trim(),
+        serieNumber: body.serieNumber.trim(),
+        weight: body.weight.trim(),
+        totalAmount: 1,
         status: "active",
       };
 
-      response = await createClientDocument(newClient, response);
+      response = await createStockDocument(newStock, response);
 
       if (response.code === 0) {
         await logActivity({
           userId: user.displayName ?? user.email ?? "",
-          action: "createClient",
+          action: "createStock",
           details: {
             after: {
-              name: capitalizeFullName(body.name),
+              product: capitalizeFullName(body.product),
             },
           },
         });
@@ -193,7 +193,7 @@ export const letsCreateNewClient = (async (user: UserRecord, body: NewClientProp
       response = {
         body: null,
         trace: "DOCUMENTS_INCONSISTANCE",
-        message: "Error al intentar crear el cliente.",
+        message: "Error al intentar crear el stocke.",
         code: 1,
       };
     }
@@ -202,30 +202,30 @@ export const letsCreateNewClient = (async (user: UserRecord, body: NewClientProp
   return response;
 });
 
-// ACTUALIZAR CLIENTE
-export const letsUpdateClient = (async (user: UserRecord, client: ClientProps, body: LetsUpdateClientProps, response:any) => {
+// ACTUALIZAR STOCKE
+export const letsUpdateStock = (async (user: UserRecord, stock: StockProps, body: LetsUpdateStockProps, response:any) => {
   if (response.code === 0) {
-    response = updateClientValidations(response, client);
+    response = updateStockValidations(response, stock);
 
     if (response.code === 0) {
-      const updateClient : ClientProps = {
-        ...client,
-        name: body.data.name ? capitalizeFullName(body.data.name) : client.name,
-        document: body.data.document ? body.data.document.trim() : client.document,
-        phone: body.data.phone ? body.data.phone.trim() : client.phone,
-        mail: body.data.mail ? body.data.mail.trim() : client.mail,
-        address: body.data.address ? body.data.address.trim() : client.address,
+      const updateStock : StockProps = {
+        ...stock,
+        product: body.data.product ? capitalizeFullName(body.data.product) : stock.product,
+        description: body.data.description ? body.data.description.trim() : stock.description,
+        serieNumber: body.data.serieNumber ? body.data.serieNumber.trim() : stock.serieNumber,
+        weight: body.data.weight ? body.data.weight.trim() : stock.weight,
+        totalAmount: 1,
       };
 
-      response = await updateClientDocument(updateClient, response);
+      response = await updateStockDocument(updateStock, response);
 
       if (response.code === 0) {
         await logActivity({
           userId: user.displayName ?? user.email ?? "",
-          action: "updateClient",
+          action: "updateStock",
           details: {
             after: {
-              ...updateClient,
+              ...updateStock,
             },
           },
         });
@@ -234,7 +234,7 @@ export const letsUpdateClient = (async (user: UserRecord, client: ClientProps, b
       response = {
         body: null,
         trace: "DOCUMENTS_INCONSISTANCE",
-        message: "Error al intentar eliminar el cliente.",
+        message: "Error al intentar eliminar el stocke.",
         code: 1,
       };
     }
@@ -243,26 +243,26 @@ export const letsUpdateClient = (async (user: UserRecord, client: ClientProps, b
   return response;
 });
 
-// ELIMINAR CLIENTE
-export const letsDeleteClient = (async (user: UserRecord, client: ClientProps, response:any) => {
+// ELIMINAR STOCKE
+export const letsDeleteStock = (async (user: UserRecord, stock: StockProps, response:any) => {
   if (response.code === 0) {
-    response = updateClientValidations(response, client);
+    response = updateStockValidations(response, stock);
 
     if (response.code === 0) {
-      const newClient : ClientProps = {
-        ...client,
+      const newStock : StockProps = {
+        ...stock,
         status: "deleted",
       };
 
-      response = await updateClientDocument(newClient, response);
+      response = await updateStockDocument(newStock, response);
 
       if (response.code === 0) {
         await logActivity({
           userId: user.displayName ?? user.email ?? "",
-          action: "deleteClient",
+          action: "deleteStock",
           details: {
             after: {
-              name: capitalizeFullName(client.name),
+              product: capitalizeFullName(stock.product),
             },
           },
         });
@@ -271,7 +271,7 @@ export const letsDeleteClient = (async (user: UserRecord, client: ClientProps, r
       response = {
         body: null,
         trace: "DOCUMENTS_INCONSISTANCE",
-        message: "Error al intentar eliminar el cliente.",
+        message: "Error al intentar eliminar el stocke.",
         code: 1,
       };
     }
@@ -280,26 +280,26 @@ export const letsDeleteClient = (async (user: UserRecord, client: ClientProps, r
   return response;
 });
 
-// REINCORPORAR CLIENTE
-export const letsReturnDeletedClient = (async (user:UserRecord, client: ClientProps, response:any) => {
+// REINCORPORAR STOCKE
+export const letsReturnDeletedStock = (async (user:UserRecord, stock: StockProps, response:any) => {
   if (response.code === 0) {
-    response = updateClientValidations(response, client);
+    response = updateStockValidations(response, stock);
 
     if (response.code === 0) {
-      const newClient : ClientProps = {
-        ...client,
+      const newStock : StockProps = {
+        ...stock,
         status: "active",
       };
 
-      response = await updateClientDocument(newClient, response);
+      response = await updateStockDocument(newStock, response);
 
       if (response.code === 0) {
         await logActivity({
           userId: user.displayName ?? user.email ?? "",
-          action: "returnDeletedClient",
+          action: "returnDeletedStock",
           details: {
             after: {
-              name: capitalizeFullName(client.name),
+              product: capitalizeFullName(stock.product),
             },
           },
         });
@@ -308,7 +308,7 @@ export const letsReturnDeletedClient = (async (user:UserRecord, client: ClientPr
       response = {
         body: null,
         trace: "DOCUMENTS_INCONSISTANCE",
-        message: "Error al intentar eliminar el cliente.",
+        message: "Error al intentar eliminar el stocke.",
         code: 1,
       };
     }
@@ -320,16 +320,16 @@ export const letsReturnDeletedClient = (async (user:UserRecord, client: ClientPr
 // // VERIFICA SI UN LOTE EXISTE
 // export const verifyLoteExist = (async (loteNumber: number, response:any) => {
 //   if (response.code === 0) {
-//     response = clientExistValidations(response, loteNumber);
+//     response = stockExistValidations(response, loteNumber);
 
 //     if (response.code === 0) {
 //       response = await getAllProducts(response);
 
 //       if (response.code === 0) {
-//         let item : ClientProps | null = null;
+//         let item : StockProps | null = null;
 
 //         if (response.body.length > 0) {
-//           response.body.forEach((value : ClientProps) => {
+//           response.body.forEach((value : StockProps) => {
 //             const loteActivo = value.lotes.find((lote) => lote.loteNumber === loteNumber && lote.endDate === null);
 
 //             if (loteActivo) {

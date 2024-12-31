@@ -1,4 +1,3 @@
-import {LoteProps} from "./ClientInterfaces";
 
 export interface WeekPayedProps {
         startDate: number;
@@ -11,7 +10,8 @@ export interface PayedProps {
     clientId: number;
     author: string;
     amount: number;
-    lotes: LoteProps[];
+    lotes: any[];
+    // lotes: LoteProps[];
     week: WeekPayedProps;
 }
 
