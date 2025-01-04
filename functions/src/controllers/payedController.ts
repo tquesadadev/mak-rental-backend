@@ -9,10 +9,7 @@ import {UserRecord} from "firebase-admin/auth";
 export const startCreatePayed = (async (req:any, res:any) => {
   let response = initialResponse;
 
-  console.log(1);
-
   response = await markAsPayedValidations(response, req.body);
-  console.log(2);
 
   response = await verifyToken(req, response);
 
@@ -36,7 +33,7 @@ export const startCreatePayed = (async (req:any, res:any) => {
           trace: "DOCUMENTS_FOUNDED",
           message: "El lote indicado se encuentra vacío.",
           code: 1,
-        };
+        }
       }
     } else {
       response = {

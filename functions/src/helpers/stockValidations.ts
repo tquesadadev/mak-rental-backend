@@ -18,6 +18,9 @@ const createStockValidations = (
       weight,
       serieNumber,
       totalAmount,
+      pricePerDay,
+      pricePerWeek,
+      pricePerMonth,
     } = doc;
 
     if (product === undefined) {
@@ -46,6 +49,27 @@ const createStockValidations = (
         body: {},
         trace: "FIELD_MISSING (serieNumber)",
         message: "Falta el campo campo serieNumber.",
+        code: 1,
+      };
+    } else if (pricePerDay === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (pricePerDay)",
+        message: "Falta el campo campo pricePerDay.",
+        code: 1,
+      };
+    } else if (pricePerWeek === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (pricePerWeek)",
+        message: "Falta el campo campo pricePerWeek.",
+        code: 1,
+      };
+    } else if (pricePerMonth === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (pricePerMonth)",
+        message: "Falta el campo campo pricePerMonth.",
         code: 1,
       };
     } else if (totalAmount === undefined) {
@@ -79,6 +103,9 @@ const markNewStockValidations = (
       weight,
       serieNumber,
       totalAmount,
+      pricePerDay,
+      pricePerWeek,
+      pricePerMonth,
     } = doc;
 
     if (product === undefined) {
@@ -107,6 +134,27 @@ const markNewStockValidations = (
         body: {},
         trace: "FIELD_MISSING (serieNumber)",
         message: "Falta el campo campo serieNumber.",
+        code: 1,
+      };
+    } else if (pricePerDay === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (pricePerDay)",
+        message: "Falta el campo campo pricePerDay.",
+        code: 1,
+      };
+    } else if (pricePerWeek === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (pricePerWeek)",
+        message: "Falta el campo campo pricePerWeek.",
+        code: 1,
+      };
+    } else if (pricePerMonth === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (pricePerMonth)",
+        message: "Falta el campo campo pricePerMonth.",
         code: 1,
       };
     } else if (totalAmount === undefined) {

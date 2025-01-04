@@ -8,6 +8,9 @@ export interface UpdateStockProps {
     description: string;
     weight: string;
     serieNumber: string;
+    pricePerDay: string;
+    pricePerWeek: string;
+    pricePerMonth: string;
     totalAmount: number;
 }
 
@@ -16,6 +19,9 @@ export interface NewStockProps {
     description: string;
     weight: string;
     serieNumber: string;
+    pricePerDay: number;
+    pricePerWeek: number;
+    pricePerMonth: number;
     totalAmount: number;
 }
 
@@ -26,6 +32,9 @@ export interface StockProps {
     weight: string;
     serieNumber: string;
     totalAmount: number;
+    pricePerDay: number;
+    pricePerWeek: number;
+    pricePerMonth: number;
     status: StatusTypes;
 }
 
@@ -41,6 +50,9 @@ export interface LetsUpdateStockProps {
         description?: string;
         weight?: string;
         serieNumber?: string;
+        pricePerDay?: number;
+        pricePerWeek?: number;
+        pricePerMonth?: number;
         totalAmount?: number;
     }
 }

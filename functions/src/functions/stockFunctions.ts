@@ -172,6 +172,9 @@ export const letsCreateNewStock = (async (user: UserRecord, body: NewStockProps,
         description: body.description.trim(),
         serieNumber: body.serieNumber.trim(),
         weight: body.weight.trim(),
+        pricePerDay: body.pricePerDay,
+        pricePerWeek: body.pricePerWeek,
+        pricePerMonth: body.pricePerMonth,
         totalAmount: 1,
         status: "active",
       };
@@ -193,7 +196,7 @@ export const letsCreateNewStock = (async (user: UserRecord, body: NewStockProps,
       response = {
         body: null,
         trace: "DOCUMENTS_INCONSISTANCE",
-        message: "Error al intentar crear el stocke.",
+        message: "Error al intentar crear el stock.",
         code: 1,
       };
     }
@@ -214,6 +217,9 @@ export const letsUpdateStock = (async (user: UserRecord, stock: StockProps, body
         description: body.data.description ? body.data.description.trim() : stock.description,
         serieNumber: body.data.serieNumber ? body.data.serieNumber.trim() : stock.serieNumber,
         weight: body.data.weight ? body.data.weight.trim() : stock.weight,
+        pricePerDay: body.data.pricePerDay ?? stock.pricePerDay,
+        pricePerWeek: body.data.pricePerWeek ?? stock.pricePerWeek,
+        pricePerMonth: body.data.pricePerMonth ?? stock.pricePerMonth,
         totalAmount: 1,
       };
 
@@ -234,7 +240,7 @@ export const letsUpdateStock = (async (user: UserRecord, stock: StockProps, body
       response = {
         body: null,
         trace: "DOCUMENTS_INCONSISTANCE",
-        message: "Error al intentar eliminar el stocke.",
+        message: "Error al intentar eliminar el stock.",
         code: 1,
       };
     }
@@ -271,7 +277,7 @@ export const letsDeleteStock = (async (user: UserRecord, stock: StockProps, resp
       response = {
         body: null,
         trace: "DOCUMENTS_INCONSISTANCE",
-        message: "Error al intentar eliminar el stocke.",
+        message: "Error al intentar eliminar el stock.",
         code: 1,
       };
     }
@@ -308,7 +314,7 @@ export const letsReturnDeletedStock = (async (user:UserRecord, stock: StockProps
       response = {
         body: null,
         trace: "DOCUMENTS_INCONSISTANCE",
-        message: "Error al intentar eliminar el stocke.",
+        message: "Error al intentar eliminar el stock.",
         code: 1,
       };
     }
