@@ -235,7 +235,7 @@ export const letsUpdateWork = (async (user: UserRecord, work: WorkProps, body: L
         thirdPartyStock: body.data.thirdPartyStock ? body.data.thirdPartyStock : work.thirdPartyStock,
         createdDate: work.createdDate,
         creator: work.creator,
-        status: work.status
+        status: work.status,
       };
 
       response = await updateWorkDocument(updateWork, response);
