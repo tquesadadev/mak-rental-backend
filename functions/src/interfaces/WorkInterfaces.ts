@@ -1,4 +1,4 @@
-import { WorkStockProps, ThirdPartyStockProps } from "./StockInterfaces";
+import {WorkStockProps, ThirdPartyStockProps} from "./StockInterfaces";
 
 export type FieldLocationPathTypes =
     | "active"

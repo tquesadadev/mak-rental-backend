@@ -3,7 +3,7 @@ import {getUserByEmail, verifyToken} from "../queries/authQueries";
 import {validateRolePermissions} from "../functions/authFunctions";
 import {markNewWorkValidations, updateWorkValidations} from "../helpers/workValidations";
 import {UserRecord} from "firebase-admin/auth";
-import { letsCreateNewWork, letsDeleteWork, letsReturnDeletedWork, letsUpdateWork, verifyWorkExistById } from "../functions/workFunctions";
+import {letsCreateNewWork, letsDeleteWork, letsReturnDeletedWork, letsUpdateWork, verifyWorkExistById} from "../functions/workFunctions";
 
 // CREA UN WORK
 export const startCreateWork = (async (req:any, res:any) => {

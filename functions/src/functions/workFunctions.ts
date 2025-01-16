@@ -167,7 +167,7 @@ export const letsCreateNewWork = (async (user: UserRecord, body: NewWorkProps, r
       const fulldate = parseInt(getFullDate());
 
       const newWork : WorkProps = {
-        id: fulldate, 
+        id: fulldate,
         address: body.address.trim(),
         clientId: body.clientId,
         comments: [],

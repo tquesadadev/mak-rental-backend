@@ -33,7 +33,7 @@ export const startCreatePayed = (async (req:any, res:any) => {
           trace: "DOCUMENTS_FOUNDED",
           message: "El lote indicado se encuentra vacío.",
           code: 1,
-        }
+        };
       }
     } else {
       response = {

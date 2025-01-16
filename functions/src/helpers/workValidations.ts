@@ -1,5 +1,5 @@
 import {ResponseProps} from "../interfaces/AuthInterfaces";
-import { NewWorkProps, WorkProps } from "../interfaces/WorkInterfaces";
+import {NewWorkProps, WorkProps} from "../interfaces/WorkInterfaces";
 
 const createWorkValidations = (
   response: ResponseProps,
@@ -29,7 +29,7 @@ const createWorkValidations = (
       shipping,
       state,
       stock,
-      thirdPartyStock
+      thirdPartyStock,
     } = doc;
 
     if (clientId === undefined) {
@@ -177,99 +177,99 @@ const markNewWorkValidations = (
       deliveryDate,
       payment,
       quote,
-     retirementDate,
-     shipping,
-     state,
-     stock,
-     thirdPartyStock
-   } = doc;
+      retirementDate,
+      shipping,
+      state,
+      stock,
+      thirdPartyStock,
+    } = doc;
 
-   if (clientId === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (clientId)",
-       message: "Falta el campo clientId.",
-       code: 1,
-     };
-   } else if (address === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (address)",
-       message: "Falta el campo campo address.",
-       code: 1,
-     };
-   } else if (daysAmount === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (daysAmount)",
-       message: "Falta el campo campo daysAmount.",
-       code: 1,
-     };
-   } else if (deliveryDate === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (deliveryDate)",
-       message: "Falta el campo campo deliveryDate.",
-       code: 1,
-     };
-   } else if (retirementDate === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (retirementDate)",
-       message: "Falta el campo campo retirementDate.",
-       code: 1,
-     };
-   } else if (payment === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (payment)",
-       message: "Falta el campo campo payment.",
-       code: 1,
-     };
-   } else if (shipping === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (shipping)",
-       message: "Falta el campo campo shipping.",
-       code: 1,
-     };
-   } else if (activity === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (activity)",
-       message: "Falta el campo campo activity.",
-       code: 1,
-     };
-   } else if (quote === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (quote)",
-       message: "Falta el campo campo quote.",
-       code: 1,
-     };
-   } else if (state === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (state)",
-       message: "Falta el campo campo state.",
-       code: 1,
-     };
-   } else if (stock === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (stock)",
-       message: "Falta el campo campo stock.",
-       code: 1,
-     };
-   } else if (thirdPartyStock === undefined) {
-     response = {
-       body: {},
-       trace: "FIELD_MISSING (thirdPartyStock)",
-       message: "Falta el campo campo thirdPartyStock.",
-       code: 1,
-     };
-   }
- }
+    if (clientId === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (clientId)",
+        message: "Falta el campo clientId.",
+        code: 1,
+      };
+    } else if (address === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (address)",
+        message: "Falta el campo campo address.",
+        code: 1,
+      };
+    } else if (daysAmount === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (daysAmount)",
+        message: "Falta el campo campo daysAmount.",
+        code: 1,
+      };
+    } else if (deliveryDate === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (deliveryDate)",
+        message: "Falta el campo campo deliveryDate.",
+        code: 1,
+      };
+    } else if (retirementDate === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (retirementDate)",
+        message: "Falta el campo campo retirementDate.",
+        code: 1,
+      };
+    } else if (payment === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (payment)",
+        message: "Falta el campo campo payment.",
+        code: 1,
+      };
+    } else if (shipping === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (shipping)",
+        message: "Falta el campo campo shipping.",
+        code: 1,
+      };
+    } else if (activity === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (activity)",
+        message: "Falta el campo campo activity.",
+        code: 1,
+      };
+    } else if (quote === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (quote)",
+        message: "Falta el campo campo quote.",
+        code: 1,
+      };
+    } else if (state === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (state)",
+        message: "Falta el campo campo state.",
+        code: 1,
+      };
+    } else if (stock === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (stock)",
+        message: "Falta el campo campo stock.",
+        code: 1,
+      };
+    } else if (thirdPartyStock === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (thirdPartyStock)",
+        message: "Falta el campo campo thirdPartyStock.",
+        code: 1,
+      };
+    }
+  }
 
   return response;
 };
