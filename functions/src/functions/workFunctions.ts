@@ -219,15 +219,23 @@ export const letsUpdateWork = (async (user: UserRecord, work: WorkProps, body: L
 
     if (response.code === 0) {
       const updateWork : WorkProps = {
-        ...work,
-        // work: body.data.product ? capitalizeFullName(body.data.product) : work.product,
-        // description: body.data.description ? body.data.description.trim() : work.description,
-        // serieNumber: body.data.serieNumber ? body.data.serieNumber.trim() : work.serieNumber,
-        // weight: body.data.weight ? body.data.weight.trim() : work.weight,
-        // pricePerDay: body.data.pricePerDay ?? work.pricePerDay,
-        // pricePerWeek: body.data.pricePerWeek ?? work.pricePerWeek,
-        // pricePerMonth: body.data.pricePerMonth ?? work.pricePerMonth,
-        // totalAmount: 1,
+        id: work.id,
+        address: body.data.address ? body.data.address.trim() : work.address,
+        clientId: body.data.clientId ? body.data.clientId : work.clientId,
+        activity: body.data.activity ? body.data.activity : work.activity,
+        comments: body.data.comments ? body.data.comments : work.comments,
+        daysAmount: body.data.daysAmount ? body.data.daysAmount : work.daysAmount,
+        deliveryDate: body.data.deliveryDate ? body.data.deliveryDate : work.deliveryDate,
+        payment: body.data.payment ? body.data.payment : work.payment,
+        quote: body.data.quote ? body.data.quote : work.quote,
+        retirementDate: body.data.retirementDate ? body.data.retirementDate : work.retirementDate,
+        shipping: body.data.shipping ? body.data.shipping : work.shipping,
+        state: body.data.state ? body.data.state : work.state,
+        stock: body.data.stock ? body.data.stock : work.stock,
+        thirdPartyStock: body.data.thirdPartyStock ? body.data.thirdPartyStock : work.thirdPartyStock,
+        createdDate: work.createdDate,
+        creator: work.creator,
+        status: work.status
       };
 
       response = await updateWorkDocument(updateWork, response);
