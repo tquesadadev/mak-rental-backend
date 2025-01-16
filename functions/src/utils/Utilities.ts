@@ -105,7 +105,8 @@ export const capitalizeFullName = (fullName: string) => {
 
 interface ActivityLogProps {
   userId: string; // ID del usuario que realiza la acción
-  action: "createClient" | "updateClient" | "deleteClient" | "returnDeletedClient" | "createStock" | "updateStock" | "deleteStock" | "returnDeletedStock" | "markPayed" | "deletePayed" | "approveAccess" | "deleteAccess" | "createWork" | "updateWork" | "deleteWork" | "returnDeletedWork"; // Nombre de la acción, e.g., "createClient", "updateLote"
+  action: "createClient" | "updateClient" | "deleteClient" | "returnDeletedClient" | "createStock" | "updateStock" | "deleteStock" | "returnDeletedStock"
+  | "markPayed" | "deletePayed" | "approveAccess" | "deleteAccess" | "createWork" | "updateWork" | "deleteWork" | "returnDeletedWork";
   timestamp?: number; // Fecha y hora de la acción, se genera automáticamente si no se pasa
   details: {
     before?: any;

@@ -11,7 +11,7 @@ export const getAllWorks = (async (response:any) => {
   if (response.code === 0) {
     const newReq : {body: GetDocumentsRequestProps} = {
       body: {
-        collection: "Work",
+        collection: "Works",
         id: null,
         where: null,
         order: null,
@@ -36,7 +36,7 @@ export const verifyWorkExistById = (async (workId: number, mustExists: boolean, 
   if (response.code === 0) {
     const newReq : {body: GetDocumentsRequestProps} = {
       body: {
-        collection: "Work",
+        collection: "Works",
         id: workId.toString(),
         where: null,
         order: null,
@@ -61,7 +61,7 @@ export const verifyWorkExistByName = (async (name: string, mustExists: boolean, 
   if (response.code === 0) {
     const newReq : {body: GetDocumentsRequestProps} = {
       body: {
-        collection: "Work",
+        collection: "Works",
         id: null,
         where: {field: "name", filter: "==", value: capitalizeFullName(name)},
         order: null,
@@ -91,7 +91,7 @@ export const createWorkDocument = (async (work: WorkProps, response:any) => {
       if (response.code === 0) {
         const newReq : {body: {collection: string, id: string, doc: WorkProps}} = {
           body: {
-            collection: "Work",
+            collection: "Works",
             id: work.id.toString(),
             doc: work,
           },
@@ -111,7 +111,7 @@ export const updateWorkDocument = (async (work: WorkProps, response:any) => {
     if (response.code === 0) {
       const newReq : {body: {collection: string, id: string, doc: WorkProps}} = {
         body: {
-          collection: "Work",
+          collection: "Works",
           id: work.id.toString(),
           doc: work,
         },
@@ -132,7 +132,7 @@ export const deleteProduct = (async (user: UserRecord, workId: number, response:
     if (response.code === 0) {
       const newReq : {body: {collection: string, id: string}} = {
         body: {
-          collection: "Work",
+          collection: "Works",
           id: workId.toString(),
         },
       };
