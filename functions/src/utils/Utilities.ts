@@ -105,7 +105,7 @@ export const capitalizeFullName = (fullName: string) => {
 
 interface ActivityLogProps {
   userId: string; // ID del usuario que realiza la acción
-  action: "createClient" | "updateClient" | "deleteClient" | "returnDeletedClient" | "createStock" | "updateStock" | "deleteStock" | "returnDeletedStock" | "markPayed" | "deletePayed" | "approveAccess" | "deleteAccess"; // Nombre de la acción, e.g., "createClient", "updateLote"
+  action: "createClient" | "updateClient" | "deleteClient" | "returnDeletedClient" | "createStock" | "updateStock" | "deleteStock" | "returnDeletedStock" | "markPayed" | "deletePayed" | "approveAccess" | "deleteAccess" | "createWork" | "updateWork" | "deleteWork" | "returnDeletedWork"; // Nombre de la acción, e.g., "createClient", "updateLote"
   timestamp?: number; // Fecha y hora de la acción, se genera automáticamente si no se pasa
   details: {
     before?: any;
@@ -115,7 +115,7 @@ interface ActivityLogProps {
 
 export const logActivity = async (logData: ActivityLogProps) => {
   const firestore = getFirestore();
-  const timestamp = logData.timestamp || parseInt(getFullDate()); // Genera la marca de tiempo si no está incluida
+  const timestamp = logData.timestamp ?? parseInt(getFullDate()); // Genera la marca de tiempo si no está incluida
 
   const activityLog = {
     userId: logData.userId,

@@ -56,3 +56,20 @@ export interface LetsUpdateStockProps {
         totalAmount?: number;
     }
 }
+
+
+// THIRD PARTY STOCK
+
+export interface ThirdPartyStockItemProps {
+    id: number;
+    product: string;
+    description: string;
+    costPrice: number;
+    clientPrice: number;
+    profit: number;
+}
+
+export interface ThirdPartyStockProps {
+    data: ThirdPartyStockItemProps[];
+    invoiceReference: number | null;
+}
