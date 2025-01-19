@@ -130,6 +130,7 @@ export interface PaymentProps {
     responsiblePayed: string | null;
     price: number;
     profit: number;
+    discount: number;
     paymentMethod: PaymentMethodTypes;
     invoicing: InvoiceTypes;
     invoiceReference: string;
