@@ -340,3 +340,15 @@ export const letsReturnDeletedWork = (async (user:UserRecord, work: WorkProps, r
   return response;
 });
 
+
+
+// ACTUALIZAR WORKE
+export const letsGeneratePdfWork = (async (user: UserRecord, work: WorkProps, body: LetsUpdateWorkProps, response:any) => {
+  if (response.code === 0) {
+
+    
+
+  }
+
+  return response;
+});

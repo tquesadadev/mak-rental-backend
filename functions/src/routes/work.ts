@@ -1,4 +1,4 @@
-import {startCreateWork, startDeleteWork, startReturnDeletedWork, startUpdateWork} from "../controllers/workController";
+import {startCreateWork, startDeleteWork, startPdfWork, startReturnDeletedWork, startUpdateWork} from "../controllers/workController";
 
 const express = require("express");
 const router = express.Router();
@@ -16,5 +16,8 @@ router.post("/deleteWork", [], startDeleteWork);
 
 // REINCORPORAR UN WORK ELIMINADO
 router.post("/returnDeletedWork", [], startReturnDeletedWork);
+
+// REINCORPORAR UN WORK ELIMINADO
+router.post("/pdf", [], startPdfWork);
 
 module.exports = router;
