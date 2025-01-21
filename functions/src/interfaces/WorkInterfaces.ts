@@ -150,6 +150,17 @@ export interface QuoteProps {
     needNewQuote: boolean;
 }
 
+export interface ExtensionProps {
+    deliveryDate: SetDateTimeProps;
+    retirementDate: SetDateTimeProps;
+    daysAmount: number;
+    stock: WorkStockProps[];
+    thirdPartyStock: ThirdPartyStockProps | null;
+    shipping: number;
+    payment: PaymentProps;
+    quote: QuoteProps;
+}
+
 export interface WorkProps {
     id: number;
     deliveryDate: SetDateTimeProps;
@@ -160,6 +171,7 @@ export interface WorkProps {
     shipping: number;
     payment: PaymentProps;
     quote: QuoteProps;
+    extension: ExtensionProps | null;
     clientId: number;
     address: string;
     state: StateWorkProps;
@@ -196,6 +208,7 @@ export interface LetsUpdateWorkProps {
         shipping?: number;
         payment?: PaymentProps;
         quote?: QuoteProps;
+        extension?: ExtensionProps | null;
         clientId?: number;
         address?: string;
         state?: StateWorkProps;
