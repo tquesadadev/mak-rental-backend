@@ -231,7 +231,7 @@ export const letsUpdateWork = (async (user: UserRecord, work: WorkProps, body: L
         quote: body.data.quote ? body.data.quote : work.quote,
         retirementDate: body.data.retirementDate ? body.data.retirementDate : work.retirementDate,
         shipping: body.data.shipping ? body.data.shipping : work.shipping,
-        extension: body.data.extension ? body.data.extension: work.extension,
+        extension: body.data.extension !== undefined ? body.data.extension: work.extension,
         state: body.data.state ? body.data.state : work.state,
         stock: body.data.stock ? body.data.stock : work.stock,
         thirdPartyStock: body.data.thirdPartyStock ? body.data.thirdPartyStock : work.thirdPartyStock,
@@ -341,14 +341,12 @@ export const letsReturnDeletedWork = (async (user:UserRecord, work: WorkProps, r
 });
 
 
-
-// ACTUALIZAR WORKE
+// ACTUALIZAR WORK
 export const letsGeneratePdfWork = (async (user: UserRecord, work: WorkProps, body: LetsUpdateWorkProps, response:any) => {
-  if (response.code === 0) {
+  // if (response.code === 0) {
 
-    
 
-  }
+  // }
 
   return response;
 });

@@ -13,12 +13,12 @@ app.use(express.urlencoded({extended: false}));
 const corsUrls = [
   "http://localhost:3000",
   "http://localhost:3000/*",
-  "https://feria-paso-del-rey.pages.dev",
-  "https://feria-paso-del-rey.pages.dev/*",
-  "https://staging.feria-paso-del-rey.pages.dev",
-  "https://staging.feria-paso-del-rey.pages.dev/*",
-  "https://paseodelrey.com.ar",
-  "https://paseodelrey.com.ar/*",
+  "https://mak-rental.pages.dev",
+  "https://mak-rental.pages.dev/*",
+  "https://staging.mak-rental.pages.dev/",
+  "https://staging.mak-rental.pages.dev/*",
+  "https://makrentaladmin.com.ar",
+  "https://makrentaladmin.com.ar/*",
 ];
 
 app.use(
