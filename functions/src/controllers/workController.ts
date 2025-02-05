@@ -4,10 +4,12 @@ import {validateRolePermissions} from "../functions/authFunctions";
 import { getPdfValidations, markNewWorkValidations, updateWorkValidations} from "../helpers/workValidations";
 import {UserRecord} from "firebase-admin/auth";
 import {letsCreateNewWork, letsDeleteWork, letsReturnDeletedWork, letsUpdateWork, verifyWorkExistById} from "../functions/workFunctions";
-import { cleanPriceText, formatDateText, formatPrice, getClientData, getDate } from "../utils/Utilities";
+import { calculateTotalAmountAndProfit, cleanPriceText, formatDateText, formatPrice, getActiveStock, getClientData, getDate } from "../utils/Utilities";
 import {WorkProps } from "../interfaces/WorkInterfaces";
 import { getAllProducts } from "../functions/stockFunctions";
 import { getAllClients } from "../functions/clientFunctions";
+import { StockProps } from "../interfaces/StockInterfaces";
+import { initialStateNewStock } from "../utils/Jsons";
 const puppeteer = require("puppeteer");
 const convertir = require('numero-a-letras');
 const fs = require('fs');
@@ -134,6 +136,7 @@ export const startPdfWork = (async (req:any, res:any) => {
   const work: WorkProps = req.body.extension ? response.body?.extension : response.body;
 
   let stockResponse = initialResponse; 
+
   let clientsResponse = initialResponse; 
 
   stockResponse = await getAllProducts(response);
@@ -358,9 +361,6 @@ export const startPdfWork = (async (req:any, res:any) => {
                   : ''
                 }
               </div>
-              <div class="right">
-                <p></p>
-              </div>
             </div>
 
             <!-- Table -->
@@ -373,14 +373,46 @@ export const startPdfWork = (async (req:any, res:any) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>BRAZO ARTICULADO HA12IP ALQUILER X DIA<br><span style="color: #666;">1 EQUIPO POR 2 DIAS, PLAZO MINIMO </span></td>
-                    <td class="text-right">567.00</td>
-                  </tr>
-                  <tr>
-                    <td>FLETE (ENVIO Y RETIRO) BRAZO ART. HA12IP<br><span style="color: #666;">LOMAS DE ZAMORA</span></td>
-                    <td class="text-right">200.00</td>
-                  </tr>
+                  ${
+                    (work.stock.length > 0) ? work.stock.map((value) => {
+
+                      const getStockProductInWork = () => {
+
+                          let productValue: StockProps = initialStateNewStock
+
+                          getActiveStock(stockResponse.body).find((product: StockProps) => { if (value.id === product.id) productValue = product })
+
+                          return productValue
+                      }
+
+                      return `
+                        <tr>
+                          <td>${getStockProductInWork().product.toUpperCase()}<br><span style="color: #666;">${getStockProductInWork().description.toUpperCase()}</span></td>
+                          <td class="text-right">$${formatPrice(calculateTotalAmountAndProfit([getStockProductInWork()], [], [], 0, work.daysAmount, false).totalAmount)}</td>
+                        </tr>
+                      `
+                    }).join('') : '<div></div>'
+                  }
+
+                  ${
+                    (work.thirdPartyStock && work.thirdPartyStock.data.length > 0) ? work.thirdPartyStock.data.map((value) => `
+                        <tr>
+                          <td>${value.product.toUpperCase()}<br><span style="color: #666;">${value.description.toUpperCase()}</span></td>
+                          <td class="text-right">$${formatPrice(value.clientPrice)}</td>
+                        </tr>
+                      `
+                    ).join('') : '<div></div>'
+                  }
+
+                  ${
+                    (work.shipping.length > 0) ? work.shipping.map((value, index) => `
+                        <tr>
+                          <td>FLETE #${index + 1} (ENVIO Y RETIRO)<br><span style="color: #666;">${work.address.toUpperCase()}</span></td>
+                          <td class="text-right">$${formatPrice(value.amount)}</td>
+                        </tr>
+                      `
+                    ).join('') : '<div></div>'
+                  }
                 </tbody>
               </table>
             </div>
@@ -390,11 +422,11 @@ export const startPdfWork = (async (req:any, res:any) => {
               <div class="footer-top">
                 <div class="footer-text">
                   <p>SON</p>
-                  <p>${cleanPriceText(convertir.NumerosALetras(10558225))}</p>
+                  <p>${cleanPriceText(convertir.NumerosALetras(calculateTotalAmountAndProfit(work.stock, work.thirdPartyStock?.data ?? [], work.shipping, work.payment.discount, work.daysAmount, true).totalAmount))}</p>
                 </div>
                 <div class="footer-price">
                   <p style="color: #666;">Total sin I.V.A.</p>
-                  <p style="font-size: 24px; font-weight: bold;">$${formatPrice(10558225)}</p>
+                  <p style="font-size: 24px; font-weight: bold;">$${formatPrice(calculateTotalAmountAndProfit(work.stock, work.thirdPartyStock?.data ?? [], work.shipping, work.payment.discount, work.daysAmount, true).totalAmount)}</p>
                 </div>
               </div>
 

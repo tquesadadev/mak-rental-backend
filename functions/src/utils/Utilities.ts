@@ -1,5 +1,5 @@
 import {getFirestore} from "firebase-admin/firestore";
-import { StockProps } from "../interfaces/StockInterfaces";
+import { ShippingProps, StockProps, ThirdPartyStockItemProps, WorkStockProps } from "../interfaces/StockInterfaces";
 import { ClientProps } from "../interfaces/ClientInterfaces";
 
 const formatTwoNumbers = (month: any) => {
@@ -135,9 +135,28 @@ export const logActivity = async (logData: ActivityLogProps) => {
   }
 };
 
-export function cleanPriceText(texto: string) {
-  return texto.replace(/\bde \b/i, "").replace(/pesos 00\/100 m\.n\./i, "").trim();
+function getDecimals(cadena: string) {
+  let partes = cadena.split("Pesos");
+
+  if (partes.length < 2) return ''; 
+
+  let match = partes[1].trim().match(/\d+(?=\/)/);
+
+  let result = partes[0] + 'pesos';
+
+  if (match !== null) 
+    result += parseInt(match[0], 10).toString() !== '0' ? ` con ${parseInt(match[0], 10)} centavos` : '';
+
+  return result
 }
+  
+  export function cleanPriceText(texto: string) {
+    let text = texto.replace(/\bde \b/i, "").trim();
+
+    text = getDecimals(text);
+
+    return text
+  }
 
 export const formatPrice = (price: number) => {
 
@@ -273,3 +292,91 @@ export const getStockData = (stockList: StockProps[], clientId: number) => {
 
   return stockList.find((client) => client.id === clientId)
 }
+
+export const getActiveStock = (list: StockProps[]) => {
+
+  const activeStock = list.filter((client) => client.status === "active");
+
+  return activeStock;
+};
+
+export const calculateTotalAmountAndProfit = (
+  stockItems: WorkStockProps[],
+  thirdPartyItems: ThirdPartyStockItemProps[] | null,
+  shipping: ShippingProps[],
+  discount: number,
+  daysAmount: number,
+  iva: boolean
+) => {
+  let totalAmount = 0;
+  let profit = 0;
+
+  // Helper function to calculate total for a single stock item based on daysAmount
+  const calculateItemTotal = (item: WorkStockProps, days: number): number => {
+      let total = 0;
+
+      while (days > 0) {
+          if (days >= 30) {
+              // Handle months
+              total += item.pricePerMonth;
+              days -= 30;
+          } else if (days >= 21) {
+              // Handle "almost a month" (21 to 30 days)
+              total += item.pricePerMonth;
+              days -= 30;
+          } else if (days >= 17) {
+              // Handle 3 weeks
+              total += 3 * item.pricePerWeek;
+              days -= 21;
+          } else if (days >= 15) {
+              // Handle 2 weeks + additional days
+              total += 2 * item.pricePerWeek + (days - 14) * item.pricePerDay;
+              days -= days; // No additional days left
+          } else if (days >= 10) {
+              // Handle 2 weeks
+              total += 2 * item.pricePerWeek;
+              days -= 14;
+          } else if (days >= 8) {
+              // Handle 1 week + additional days
+              total += item.pricePerWeek + (days - 7) * item.pricePerDay;
+              days -= days; // No additional days left
+          } else if (days >= 3) {
+              // Handle 1 week
+              total += item.pricePerWeek;
+              days -= 7;
+          } else {
+              // Handle 1 or 2 days
+              total += days * item.pricePerDay;
+              days -= days;
+          }
+      }
+
+      return total;
+  };
+
+  // Calculate totalAmount and profit for stockItems
+  stockItems.forEach((item) => {
+      const itemTotal = calculateItemTotal(item, daysAmount);
+      totalAmount += itemTotal;
+      profit += itemTotal; // Profit is the same as totalAmount for stockItems
+  });
+
+  // Add third-party items to totalAmount and profit
+  thirdPartyItems?.forEach((item) => {
+      totalAmount += item.clientPrice;
+      profit += item.profit;
+  });
+
+  // Add shipping cost to totalAmount
+  totalAmount += shipping.reduce((total, item) => total + (item.amount || 0), 0);
+
+  // Discount
+  totalAmount = totalAmount - discount
+  profit = profit - discount
+
+  // IVA
+  if (iva)
+      totalAmount = totalAmount * 1.21
+
+  return { totalAmount, profit };
+};

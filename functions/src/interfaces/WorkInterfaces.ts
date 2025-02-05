@@ -1,4 +1,4 @@
-import {WorkStockProps, ThirdPartyStockProps} from "./StockInterfaces";
+import {WorkStockProps, ThirdPartyStockProps, ShippingProps} from "./StockInterfaces";
 
 export type FieldLocationPathTypes =
     | "active"
@@ -156,7 +156,7 @@ export interface ExtensionProps {
     daysAmount: number;
     stock: WorkStockProps[];
     thirdPartyStock: ThirdPartyStockProps | null;
-    shipping: number;
+    shipping: ShippingProps[];
     payment: PaymentProps;
     quote: QuoteProps;
 }
@@ -168,7 +168,7 @@ export interface WorkProps {
     daysAmount: number;
     stock: WorkStockProps[];
     thirdPartyStock: ThirdPartyStockProps | null;
-    shipping: number;
+    shipping: ShippingProps[];
     payment: PaymentProps;
     quote: QuoteProps;
     extension: ExtensionProps | null;
@@ -188,7 +188,7 @@ export interface NewWorkProps {
     daysAmount: number;
     stock: WorkStockProps[];
     thirdPartyStock: ThirdPartyStockProps | null;
-    shipping: number;
+    shipping: ShippingProps[];
     payment: PaymentProps;
     quote: QuoteProps;
     clientId: number;
@@ -205,7 +205,7 @@ export interface LetsUpdateWorkProps {
         daysAmount?: number;
         stock?: WorkStockProps[];
         thirdPartyStock?: ThirdPartyStockProps | null;
-        shipping?: number;
+        shipping?: ShippingProps[];
         payment?: PaymentProps;
         quote?: QuoteProps;
         extension?: ExtensionProps | null;

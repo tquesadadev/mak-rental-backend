@@ -38,9 +38,21 @@ export interface StockProps {
     status: StatusTypes;
 }
 
-export interface WorkStockProps {
+export interface ShippingProps {
     id: number;
     amount: number;
+}
+
+export interface WorkStockProps {
+    id: number;
+    product: string;
+    description: string;
+    weight: string;
+    serieNumber: string;
+    pricePerDay: number;
+    pricePerWeek: number;
+    pricePerMonth: number;
+    totalAmount: number;
 }
 
 export interface LetsUpdateStockProps {

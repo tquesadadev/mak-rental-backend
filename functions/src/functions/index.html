@@ -213,6 +213,16 @@
                   <td>FLETE (ENVIO Y RETIRO) BRAZO ART. HA12IP<br><span style="color: #666;">LOMAS DE ZAMORA</span></td>
                   <td class="text-right">200.00</td>
                 </tr>
+
+                <tr>
+                  <td>${value.product.toUpperCase()}<br><span style="color: #666;">${value.description.toUpperCase()}</span></td>
+                  <td class="text-right">$${formatPrice(value.clientPrice)}</td>
+                </tr>
+                <div></div>
+                <tr>
+                  <td>FLETE #${index + 1} (ENVIO Y RETIRO)<br><span style="color: #666;">${work.address.toUpperCase()}</span></td>
+                  <td class="text-right">$${formatPrice(value.amount)}</td>
+                </tr>
               </tbody>
             </table>
           </div>
