@@ -18,6 +18,6 @@ router.post("/deleteWork", [], startDeleteWork);
 router.post("/returnDeletedWork", [], startReturnDeletedWork);
 
 // REINCORPORAR UN WORK ELIMINADO
-router.get("/pdf", [], startPdfWork);
+router.post("/pdf", [], startPdfWork);
 
 module.exports = router;

@@ -317,9 +317,61 @@ const updateWorkValidations = (
   return response;
 };
 
+const getPdfValidations = (
+  response: ResponseProps,
+  params: any) => {
+  if (params === undefined) {
+    response = {
+      body: {},
+      trace: "FIELD_MISSING (body)",
+      message: "Falta el campo body.",
+      code: 1,
+    };
+  } else {
+    const {
+      id,
+      extension
+    } = params;
+
+    if (id === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (id)",
+        message: "Falta el campo id.",
+        code: 1,
+      };
+    } else if (typeof id !== "number") {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (id)",
+        message: "Error en el campo id.",
+        code: 1,
+      };
+    } else if (extension === undefined) {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (extension)",
+        message: "Falta el campo campo extension.",
+        code: 1,
+      };
+    } else if (typeof extension !== "boolean") {
+      response = {
+        body: {},
+        trace: "FIELD_MISSING (extension)",
+        message: "Error en el campo extension.",
+        code: 1,
+      };
+    }
+    
+  }
+
+  return response;
+};
+
 export {
   createWorkValidations,
   updateWorkValidations,
   workExistValidations,
   markNewWorkValidations,
+  getPdfValidations
 };

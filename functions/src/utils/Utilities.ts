@@ -1,4 +1,6 @@
 import {getFirestore} from "firebase-admin/firestore";
+import { StockProps } from "../interfaces/StockInterfaces";
+import { ClientProps } from "../interfaces/ClientInterfaces";
 
 const formatTwoNumbers = (month: any) => {
   let m = month;
@@ -132,3 +134,142 @@ export const logActivity = async (logData: ActivityLogProps) => {
     console.error("Error al registrar la actividad:", error);
   }
 };
+
+export function cleanPriceText(texto: string) {
+  return texto.replace(/\bde \b/i, "").replace(/pesos 00\/100 m\.n\./i, "").trim();
+}
+
+export const formatPrice = (price: number) => {
+
+  let p: number = price;
+  const internationarFormat = new Intl.NumberFormat('de-DE')
+
+  const result: string = internationarFormat.format(p);
+
+  return result;
+
+}
+
+export const formatDateYYYYmmDD = (date: number) => {
+
+  let d = date.toString().slice(6, 8);
+  let m = date.toString().slice(4, 6);
+  let y = date.toString().slice(0, 4);
+
+  return `${y}-${m}-${d}`;
+
+}
+
+export const formatDateText = (date: number) => {
+
+  let month = '';
+
+  let d = date.toString().slice(6, 8);
+  let m = date.toString().slice(4, 6);
+  let y = date.toString().slice(0, 4);
+
+  switch (m) {
+    case '01':
+        month = 'Enero';
+        break;
+    case '02':
+        month = 'Febrero';
+        break;
+    case '03':
+        month = 'Marzo';
+        break;
+    case '04':
+        month = 'Abril';
+        break;
+    case '05':
+        month = 'Mayo';
+        break;
+    case '06':
+        month = 'Junio';
+        break;
+    case '07':
+        month = 'Juio';
+        break;
+    case '08':
+        month = 'Agosto';
+        break;
+    case '09':
+        month = 'Septiembre';
+        break;
+    case '10':
+        month = 'Octubre';
+        break;
+    case '11':
+        month = 'Noviembre';
+        break;
+    case '12':
+        month = 'Diciembre';
+        break;
+  }
+
+  return `${d} de ${month} de ${y}`;
+
+}
+
+export const getFullDateText = () => {
+
+  const date = new Date();
+
+  let month = '';
+
+  let d = date.toString().slice(6, 8);
+  let m = date.toString().slice(4, 6);
+  let y = date.toString().slice(0, 4);
+
+  switch (m) {
+      case '01':
+          month = 'Enero';
+          break;
+      case '02':
+          month = 'Febrero';
+          break;
+      case '03':
+          month = 'Marzo';
+          break;
+      case '04':
+          month = 'Abril';
+          break;
+      case '05':
+          month = 'Mayo';
+          break;
+      case '06':
+          month = 'Junio';
+          break;
+      case '07':
+          month = 'Juio';
+          break;
+      case '08':
+          month = 'Agosto';
+          break;
+      case '09':
+          month = 'Septiembre';
+          break;
+      case '10':
+          month = 'Octubre';
+          break;
+      case '11':
+          month = 'Noviembre';
+          break;
+      case '12':
+          month = 'Diciembre';
+          break;
+  }
+
+  return `${d} de ${month} de ${y}`;
+
+}
+
+export const getClientData = (clientsList: ClientProps[], clientId: number) => {
+
+  return clientsList.find((client) => client.id === clientId)
+}
+
+export const getStockData = (stockList: StockProps[], clientId: number) => {
+
+  return stockList.find((client) => client.id === clientId)
+}

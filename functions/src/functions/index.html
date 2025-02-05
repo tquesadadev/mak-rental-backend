@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Presupuesto</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+          }
+          .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fafafa;
+            border: 1px solid #ccc;
+            min-height: 1100px;
+            height: 100%;
+            position: relative;
+          }
+          .header {
+            position: relative;
+            background-color: #000;
+            height: 150px;
+            border-bottom: 3px solid #fef9c9;;
+          }
+          .header-content {
+            width: 45%;
+            height: 100%;
+            padding-left: 3%;
+            background-color: #FFBB00;
+            display: flex;
+            align-items: center;
+          }
+          .header-text {
+            color: #000;
+          }
+          .logo {
+            position: absolute;
+            top: 7px;
+            right: 30px;
+            text-align: center;
+          }
+          .logo img {
+            width: 350px;
+            height: auto;
+            object-fit: contain;
+          }
+          .client-info {
+            display: flex;
+            padding: 10px 16px;
+          }
+
+          .client-info .left {
+            width: 60%;
+            font-size: 14px;
+          }
+          .client-info .left strong {
+            font-size: 16px;
+          }
+
+          .client-info .left p {
+            margin: 5px;
+          }
+          .client-info .right {
+            width: 25%;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            align-items: end;
+            font-size: 14px;
+          }
+          .content {
+            padding: 0px 16px;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+          }
+          table thead {
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+          }
+          table th {
+            padding: 8px;
+            text-align: center;
+          }
+
+          table th:first-of-type {
+            text-align: center;
+          }
+          table td {
+            padding: 8px;
+            text-align: left;
+          }
+          table th {
+            font-weight: bold;
+          }
+          table td.text-right {
+            text-align: center;
+          }
+          .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          
+          }
+          .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #333;
+            margin: 0px 16px;
+            gap: 40px
+          }
+
+          .footer-text {
+            display: flex;
+            align-items: start;
+            gap: 0px
+          }
+
+          .footer-text p {
+            margin-left: 15px;
+            text-transform: uppercase;
+          }
+          .footer-price {
+            display: flex;
+            gap: 30px;
+            justify-content: space-between;
+            align-items: center;
+            margin-right: 50px;
+            white-space: nowrap;
+          }
+          .footer-bottom {
+            margin-top: 20px;
+            padding: 30px ;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            background-color: #FFFFFF;
+          }
+          .footer-logo {
+            width: 128px;
+            height: 128px;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+          }
+          .contact-info {
+            font-size: 12px;
+            color: #666;
+          }
+          .total-box {
+            width: 180px;
+            height: 40px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <!-- Header -->
+          <div class="header">
+            <div class="header-content">
+              <div class="header-text">
+                <p>Fecha: 31 de Octubre de 2024</p>
+                <p>PRESUPUESTO N° 00010124</p>
+              </div>
+            </div>
+            <div class="logo">
+                <img src='../images/mak-logo-text.webp' alt=""/>
+            </div>
+          </div>
+
+          <!-- Client Info -->
+          <div class="client-info">
+            <div class="left">
+              <p><strong>PUNTO GALAICO S.R.L</strong></p>
+              <p>LA RIOJA 1294 Piso:4 Dpto:14</p>
+              <p>CIUDAD AUTONOMA BL Buenos Aires</p>
+            </div>
+            <div class="right">
+              <p>30-71620400-2</p>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="content">
+            <table>
+              <thead>
+                <tr>
+                  <th>Descripción</th>
+                  <th class="text-right">Precio Unitario</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>BRAZO ARTICULADO HA12IP ALQUILER X DIA<br><span style="color: #666;">1 EQUIPO POR 2 DIAS, PLAZO MINIMO </span></td>
+                  <td class="text-right">567.00</td>
+                </tr>
+                <tr>
+                  <td>FLETE (ENVIO Y RETIRO) BRAZO ART. HA12IP<br><span style="color: #666;">LOMAS DE ZAMORA</span></td>
+                  <td class="text-right">200.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Footer -->
+          <div class="footer">
+            <div class="footer-top">
+              <div class="footer-text">
+                <p>SON</p>
+                <p>Diecisiete Millones Quinientos Cincuenta y Ocho Mil
+                  Doscientos Veinticinco</p>
+              </div>
+              <div class="footer-price">
+                <p style="color: #666;">Total sin I.V.A.</p>
+                <p style="font-size: 24px; font-weight: bold;">1212767.00</p>
+              </div>
+            </div>
+
+            <div class="footer-bottom">
+              <div class="footer-logo">LOGO</div>
+              <div class="contact-info">
+                <p>Colectora Panamericana KM 40.5</p>
+                <p>Ramal Pilar - Del viso - Bs. As. - C.P. 1669</p>
+                <p>Tel.: 02304429474</p>
+                <p>info@unirental.com.ar</p>
+                <p>www.unirental.com.ar</p>
+              </div>
+              <div class="total-box">LOGO</div>
+            </div>
+          </div>
+        </div>
+      </body>
+      </html>

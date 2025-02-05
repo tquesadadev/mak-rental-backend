@@ -7,7 +7,7 @@ import {deleteSoldValidations} from "../helpers/payedValidations";
 import {UserRecord} from "firebase-admin/auth";
 
 // OBTENER DOCUMENTOS
-export const getAllProducts = (async (response:any) => {
+export const getAllClients = (async (response:any) => {
   if (response.code === 0) {
     const newReq : {body: GetDocumentsRequestProps} = {
       body: {
